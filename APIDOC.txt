@@ -1,0 +1,81 @@
+API for creating user account
+
+    url:http://127.0.0.1:8000/api/signup/
+    
+    method:post
+    
+    body:{"username":"username","email":"user email","password":"password"}
+
+
+
+API for getting token for user
+
+    url:http://127.0.0.1:8000/api/token/
+
+    method:post
+
+    body:{"username":"valid username","password":"valid password"}
+
+
+
+
+schema:POST
+fields:[caption,picture,owner,liked_by]
+
+API for listing all posts
+
+    url:http://127.0.0.1:8000/api/posts/
+
+    method:GET
+
+    body:Nill
+
+    autorization:Token
+
+
+API for adding a new  posts
+
+    url:http://127.0.0.1:8000/api/posts/
+
+    method:POST
+
+    body:{caption:"post caption",picture:"post picture"}
+
+    autorization:Token
+
+
+
+
+API for fetching a specific post detail
+
+    url:http://127.0.0.1:8000/api/posts/{id}/
+
+    method:GET
+
+    body:Nill
+
+    autorization:Token
+
+
+API for like a post
+
+
+    url:http://127.0.0.1:8000/api/posts/{id}/add-like/
+
+    method:POST
+
+    body:Nill
+
+    autorization:Token
+
+
+
+API for post a comment for a particular post
+
+    url:http://127.0.0.1:8000/api/posts/{id}/add-comment/
+
+    method:POST
+
+    body:{message}
+
+    autorization:Token
