@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from django.contrib.auth.models import User
 
-from api.models import Post,Comment
+from api.models import Post,Comment,UserProfile
 
 
 
@@ -56,6 +56,11 @@ class PostSerializer(serializers.ModelSerializer):
 
     comments=serializers.SerializerMethodField(method_name="get_comments",read_only=True)
 
+    owner=serializers.StringRelatedField(read_only=True)
+
+    is_liked=serializers.SerializerMethodField()
+
+
     class Meta:
 
         model=Post
@@ -79,16 +84,12 @@ class PostSerializer(serializers.ModelSerializer):
         serializer_instance=CommentSerializer(qs,many=True)
 
         return serializer_instance.data
+    
+    def get_is_liked(self,obj):
 
+        request=self.context.get("request")
 
-
-
-
-
-
-
-
-
+        return True if request.user in obj.liked_by.all() else False
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -110,3 +111,14 @@ class CommentSerializer(serializers.ModelSerializer):
             "updated_date",
             "is_active"
         ]
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model=UserProfile
+
+        fields="__all__"
+
+        read_only_fields=["id","owner","created_date","update_date","is_active"]
